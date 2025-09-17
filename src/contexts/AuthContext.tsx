@@ -52,9 +52,48 @@ const mockCredentials = {
 
 // Role permissions
 const rolePermissions = {
-  admin: ['users.create', 'users.read', 'users.update', 'users.delete', 'roles.create', 'roles.read', 'roles.update', 'roles.delete'],
-  manager: ['users.read', 'users.update', 'roles.read'],
-  user: ['users.read'],
+  admin: [
+    'dashboard.access',
+    'users.create', 'users.read', 'users.update', 'users.delete',
+    'roles.create', 'roles.read', 'roles.update', 'roles.delete',
+    'assets.create', 'assets.read', 'assets.update', 'assets.delete',
+    'contracts.create', 'contracts.read', 'contracts.update', 'contracts.delete',
+    'emails.create', 'emails.read', 'emails.update', 'emails.delete',
+    'payroll.create', 'payroll.read', 'payroll.update', 'payroll.delete',
+    'tickets.create', 'tickets.read', 'tickets.update', 'tickets.delete',
+    'changeRequests.create', 'changeRequests.read', 'changeRequests.update', 'changeRequests.delete',
+    'attendance.create', 'attendance.read', 'attendance.update', 'attendance.delete',
+    'kpi.create', 'kpi.read', 'kpi.update', 'kpi.delete',
+    'okr.create', 'okr.read', 'okr.update', 'okr.delete',
+    'settings.manage',
+  ],
+  manager: [
+    'dashboard.access',
+    'users.read', 'users.update',
+    'roles.read',
+    'assets.read', 'assets.update',
+    'contracts.read', 'contracts.update',
+    'emails.read', 'emails.update',
+    'payroll.read', 'payroll.update',
+    'tickets.read', 'tickets.update',
+    'changeRequests.read', 'changeRequests.update',
+    'attendance.read', 'attendance.update',
+    'kpi.read', 'kpi.update',
+    'okr.read', 'okr.update',
+  ],
+  user: [
+    'dashboard.access',
+    'users.read',
+    'assets.read',
+    'contracts.read',
+    'emails.read',
+    'payroll.read',
+    'tickets.read',
+    'changeRequests.read',
+    'attendance.read',
+    'kpi.read',
+    'okr.read',
+  ],
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

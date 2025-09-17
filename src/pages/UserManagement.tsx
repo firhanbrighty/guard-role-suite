@@ -5,14 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+import { DataTable, Column } from '@/components/ui/data-table';
 import {
   Dialog,
   DialogContent,
@@ -47,6 +40,10 @@ const UserManagement = () => {
     email: '',
     role: '',
     status: 'active' as 'active' | 'inactive',
+    division: '',
+    organization: '',
+    position: '',
+    department: '',
   });
 
   const resetForm = () => {
@@ -55,6 +52,10 @@ const UserManagement = () => {
       email: '',
       role: '',
       status: 'active',
+      division: '',
+      organization: '',
+      position: '',
+      department: '',
     });
   };
 
@@ -93,6 +94,10 @@ const UserManagement = () => {
       email: user.email,
       role: user.role,
       status: user.status,
+      division: user.division || '',
+      organization: user.organization || '',
+      position: user.position || '',
+      department: user.department || '',
     });
     setIsEditDialogOpen(true);
   };
@@ -225,6 +230,42 @@ const UserManagement = () => {
                       </SelectContent>
                     </Select>
                   </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="division">Division</Label>
+                    <Input
+                      id="division"
+                      value={formData.division}
+                      onChange={(e) => setFormData({ ...formData, division: e.target.value })}
+                      placeholder="e.g., IT Division"
+                    />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="organization">Organization</Label>
+                    <Input
+                      id="organization"
+                      value={formData.organization}
+                      onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                      placeholder="e.g., Head Office"
+                    />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="position">Position</Label>
+                    <Input
+                      id="position"
+                      value={formData.position}
+                      onChange={(e) => setFormData({ ...formData, position: e.target.value })}
+                      placeholder="e.g., System Administrator"
+                    />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="department">Department</Label>
+                    <Input
+                      id="department"
+                      value={formData.department}
+                      onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+                      placeholder="e.g., Information Technology"
+                    />
+                  </div>
                 </div>
                 <DialogFooter>
                   <Button type="button" variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
@@ -238,61 +279,94 @@ const UserManagement = () => {
         )}
       </div>
 
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Created</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell className="font-medium">{user.name}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>
-                  <Badge variant="secondary" className="capitalize">
-                    {user.role}
-                  </Badge>
-                </TableCell>
-                <TableCell>
-                  <Badge variant={user.status === 'active' ? 'default' : 'secondary'}>
-                    {user.status}
-                  </Badge>
-                </TableCell>
-                <TableCell>{user.createdAt}</TableCell>
-                <TableCell className="text-right">
-                  <div className="flex justify-end space-x-2">
-                    {hasPermission('users.update') && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleEdit(user)}
-                      >
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                    )}
-                    {hasPermission('users.delete') && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleDelete(user.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    )}
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+      <DataTable
+        data={users}
+        searchKey="name"
+        searchPlaceholder="Search users..."
+        columns={[
+          {
+            key: 'name',
+            header: 'Name',
+            sortable: true,
+          },
+          {
+            key: 'email',
+            header: 'Email',
+            sortable: true,
+          },
+          {
+            key: 'role',
+            header: 'Role',
+            sortable: true,
+            render: (user) => (
+              <Badge variant="secondary" className="capitalize">
+                {user.role}
+              </Badge>
+            ),
+          },
+          {
+            key: 'status',
+            header: 'Status',
+            sortable: true,
+            render: (user) => (
+              <Badge variant={user.status === 'active' ? 'default' : 'secondary'}>
+                {user.status}
+              </Badge>
+            ),
+          },
+          {
+            key: 'division',
+            header: 'Division',
+            sortable: true,
+            render: (user) => user.division || '-',
+          },
+          {
+            key: 'organization',
+            header: 'Organization',
+            sortable: true,
+            render: (user) => user.organization || '-',
+          },
+          {
+            key: 'position',
+            header: 'Position',
+            sortable: true,
+            render: (user) => user.position || '-',
+          },
+          {
+            key: 'department',
+            header: 'Department',
+            sortable: true,
+            render: (user) => user.department || '-',
+          },
+          {
+            key: 'createdAt',
+            header: 'Created',
+            sortable: true,
+          },
+        ]}
+        actions={(user) => (
+          <div className="flex justify-end space-x-2">
+            {hasPermission('users.update') && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleEdit(user)}
+              >
+                <Edit className="h-4 w-4" />
+              </Button>
+            )}
+            {hasPermission('users.delete') && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleDelete(user.id)}
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
+        )}
+      />
 
       {/* Edit Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
@@ -350,6 +424,42 @@ const UserManagement = () => {
                     <SelectItem value="inactive">Inactive</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="edit-division">Division</Label>
+                <Input
+                  id="edit-division"
+                  value={formData.division}
+                  onChange={(e) => setFormData({ ...formData, division: e.target.value })}
+                  placeholder="e.g., IT Division"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="edit-organization">Organization</Label>
+                <Input
+                  id="edit-organization"
+                  value={formData.organization}
+                  onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                  placeholder="e.g., Head Office"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="edit-position">Position</Label>
+                <Input
+                  id="edit-position"
+                  value={formData.position}
+                  onChange={(e) => setFormData({ ...formData, position: e.target.value })}
+                  placeholder="e.g., System Administrator"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="edit-department">Department</Label>
+                <Input
+                  id="edit-department"
+                  value={formData.department}
+                  onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+                  placeholder="e.g., Information Technology"
+                />
               </div>
             </div>
             <DialogFooter>

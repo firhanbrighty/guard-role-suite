@@ -11,6 +11,15 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import UserManagement from "./pages/UserManagement";
 import RoleManagement from "./pages/RoleManagement";
+import AssetManagement from "./pages/AssetManagement";
+import ContractManagement from "./pages/ContractManagement";
+import EmailManagement from "./pages/EmailManagement";
+import PayrollManagement from "./pages/PayrollManagement";
+import TicketManagement from "./pages/TicketManagement";
+import ChangeRequestManagement from "./pages/ChangeRequestManagement";
+import AttendanceManagement from "./pages/AttendanceManagement";
+import KPIManagement from "./pages/KPIManagement";
+import OKRManagement from "./pages/OKRManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -51,6 +60,96 @@ const App = () => (
                 <ProtectedRoute requiredPermission="roles.read">
                   <DashboardLayout>
                     <RoleManagement />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/contracts"
+              element={
+                <ProtectedRoute requiredPermission="contracts.read">
+                  <DashboardLayout>
+                    <ContractManagement />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/emails"
+              element={
+                <ProtectedRoute requiredPermission="emails.read">
+                  <DashboardLayout>
+                    <EmailManagement />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/payroll"
+              element={
+                <ProtectedRoute requiredPermission="payroll.read">
+                  <DashboardLayout>
+                    <PayrollManagement />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/tickets"
+              element={
+                <ProtectedRoute requiredPermission="tickets.read">
+                  <DashboardLayout>
+                    <TicketManagement />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/change-requests"
+              element={
+                <ProtectedRoute requiredPermission="changeRequests.read">
+                  <DashboardLayout>
+                    <ChangeRequestManagement />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/attendance"
+              element={
+                <ProtectedRoute requiredPermission="attendance.read">
+                  <DashboardLayout>
+                    <AttendanceManagement />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/kpi"
+              element={
+                <ProtectedRoute requiredPermission="kpi.read">
+                  <DashboardLayout>
+                    <KPIManagement />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/okr"
+              element={
+                <ProtectedRoute requiredPermission="okr.read">
+                  <DashboardLayout>
+                    <OKRManagement />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/assets"
+              element={
+                <ProtectedRoute requiredPermission="assets.read">
+                  <DashboardLayout>
+                    <AssetManagement />
                   </DashboardLayout>
                 </ProtectedRoute>
               }

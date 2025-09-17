@@ -6,7 +6,7 @@ const Index = () => {
       <div className="text-center space-y-6">
         <h1 className="text-4xl font-bold">Admin Dashboard</h1>
         <p className="text-xl text-muted-foreground">
-          Secure admin panel with role-based access control
+          Human Resource Information System
         </p>
         <div className="space-x-4">
           <a

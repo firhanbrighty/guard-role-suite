@@ -3,6 +3,10 @@ import { User } from '@/contexts/AuthContext';
 
 export interface UserWithoutPassword extends User {
   status: 'active' | 'inactive';
+  division?: string;
+  organization?: string;
+  position?: string;
+  department?: string;
 }
 
 // Mock users data with localStorage persistence
@@ -14,6 +18,10 @@ const initialUsers: UserWithoutPassword[] = [
     role: 'admin',
     createdAt: '2024-01-01',
     status: 'active',
+    division: 'IT Division',
+    organization: 'Head Office',
+    position: 'System Administrator',
+    department: 'Information Technology',
   },
   {
     id: '2',
@@ -22,6 +30,10 @@ const initialUsers: UserWithoutPassword[] = [
     role: 'manager',
     createdAt: '2024-01-02',
     status: 'active',
+    division: 'Operations Division',
+    organization: 'Regional Office',
+    position: 'Operations Manager',
+    department: 'Operations',
   },
   {
     id: '3',
@@ -30,14 +42,34 @@ const initialUsers: UserWithoutPassword[] = [
     role: 'user',
     createdAt: '2024-01-03',
     status: 'active',
+    division: 'HR Division',
+    organization: 'Head Office',
+    position: 'HR Specialist',
+    department: 'Human Resources',
   },
   {
     id: '4',
-    email: 'john@example.com',
-    name: 'John Doe',
+    email: 'finance@example.com',
+    name: 'Finance User',
     role: 'user',
     createdAt: '2024-01-04',
+    status: 'active',
+    division: 'Finance Division',
+    organization: 'Head Office',
+    position: 'Financial Analyst',
+    department: 'Finance',
+  },
+  {
+    id: '5',
+    email: 'marketing@example.com',
+    name: 'Marketing User',
+    role: 'user',
+    createdAt: '2024-01-05',
     status: 'inactive',
+    division: 'Marketing Division',
+    organization: 'Branch Office',
+    position: 'Marketing Coordinator',
+    department: 'Marketing',
   },
 ];
 
